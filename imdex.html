@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fast Food Delivery</title>
+    <style>
+        /* Reset de estilos */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            color: #333;
+            overflow-x: hidden; /* Evita rolagem horizontal */
+        }
+
+        /* Cabeçalho */
+        header {
+            background-color: #ff6347;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header .logo img {
+            width: 120px;
+        }
+
+        header nav ul {
+            list-style-type: none;
+            display: flex;
+        }
+
+        header nav ul li {
+            margin: 0 20px;
+        }
+
+        header nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+
+        header nav ul li a:hover {
+            color: #ff4500;
+        }
+
+        /* Banner */
+        .banner {
+            background: url('images/burger.jpg') no-repeat center center/cover;
+            height: 600px;
+            text-align: center;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 20px;
+            box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.5);
+        }
+
+        .banner h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+        }
+
+        .banner p {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+        }
+
+        .banner button {
+            background-color: #ff6347;
+            padding: 15px 30px;
+            border: none;
+            cursor: pointer;
+            font-size: 1.4rem;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .banner button:hover {
+            background-color: #ff4500;
+            transform: scale(1.1);
+        }
+
+        /* Menu */
+        #menu {
+            padding: 60px 20px;
+            text-align: center;
+            background-color: #fff;
+        }
+
+        #menu h2 {
+            font-size: 3rem;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .menu-item {
+            display: inline-block;
+            margin: 20px;
+            width: 280px;
+            text-align: center;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transform: scale(1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .menu-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .menu-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: opacity 0.3s ease;
+        }
+
+        .menu-item img:hover {
+            opacity: 0.8;
+        }
+
+        .menu-item h3 {
+            margin: 10px 0;
+            font-size: 1.6rem;
+            color: #333;
+        }
+
+        .menu-item p {
+            margin-bottom: 15px;
+            color: #666;
+        }
+
+        .menu-item button {
+            background-color: #ff6347;
+            padding: 12px 20px;
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .menu-item button:hover {
+            background-color: #ff4500;
+            transform: scale(1.1);
+        }
+
+        /* Rodapé */
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        footer p {
+            font-size: 1rem;
+        }
+
+        /* Estilos para o Feedback */
+        .feedback {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #28a745;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            animation: fade-in 0.5s ease-in-out;
+        }
+
+        /* Animação de fade-in para feedback */
+        @keyframes fade-in {
+            0% {
+                opacity: 0;
+                transform: translateX(-50%) translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+
+        /* Contagem do Carrinho */
+        .cart-count {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #ff6347;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50%;
+            font-size: 1.4rem;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 20;
+        }
+    </style>
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <header>
+        <div class="logo">
+            <img src="images/logo.png" alt="Logo Fast Food Delivery">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#menu">Menu</a></li>
+                <li><a href="#contact">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Banner -->
+    <section id="home" class="banner">
+        <h1>Bem-vindo ao Fast Food Delivery!</h1>
+        <p>O melhor delivery de fast food da cidade, entregue rápido e quente!</p>
+        <button onclick="window.location.href='#menu'">Ver Menu</button>
+    </section>
+
+    <!-- Menu -->
+    <section id="menu">
+        <h2>Nosso Menu</h2>
+        <div class="menu-item">
+            <img src="images/burger.jpg" alt="Hambúrguer Clássico">
+            <h3>Hambúrguer Clássico</h3>
+            <p>Deliciosa carne grelhada, queijo e molho especial.</p>
+            <button onclick="adicionarAoPedido('Hambúrguer Clássico')">Adicionar ao Pedido</button>
+        </div>
+        <div class="menu-item">
+            <img src="images/fries.jpg" alt="Batata Frita">
+            <h3>Batata Frita</h3>
+            <p>Batatas crocantes e douradas, servidas com ketchup.</p>
+            <button onclick="adicionarAoPedido('Batata Frita')">Adicionar ao Pedido</button>
+        </div>
+        <div class="menu-item">
+            <img src="images/drink.jpg" alt="Refrigerante">
+            <h3>Refrigerante</h3>
+            <p>Escolha entre várias opções de refrigerante.</p>
+            <button onclick="adicionarAoPedido('Refrigerante')">Adicionar ao Pedido</button>
+        </div>
+    </section>
+
+    <!-- Contato -->
+    <section id="contact">
+        <h2>Fale Conosco</h2>
+        <form action="#">
+            <input type="text" name="name" placeholder="Seu nome" required>
+            <input type="email" name="email" placeholder="Seu e-mail" required>
+            <textarea name="message" placeholder="Sua mensagem" required></textarea>
+            <button type="submit">Enviar Mensagem</button>
+        </form>
+    </section>
+
+    <!-- Rodapé -->
+    <footer>
+        <p>&copy; 2024 Fast Food Delivery. Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- Feedback Dinâmico -->
+    <div id="feedback-container"></div>
+
+    <!-- Contador de itens no Carrinho -->
+    <div id="cart-count" class="cart-count">0</div>
+
+    <script>
+        let cartCount = 0;
+
+        // Função para exibir o feedback de item adicionado ao pedido
+        function adicionarAoPedido(item) {
+            // Cria o feedback
+            const feedback = document.createElement('div');
+            feedback.classList.add('feedback');
+            feedback.textContent = `${item} adicionado ao seu pedido!`;
+            document.body.appendChild(feedback);
+
+            // Atualiza o contador do carrinho
+            cartCount++;
+            document.getElementById('cart-count').textContent = cartCount;
+
+            // Remove o feedback após 3 segundos
+            setTimeout(() => {
+                feedback.remove();
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
